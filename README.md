@@ -4,7 +4,7 @@ Upload a file. Pick a goal. Get instant AI analysis — no prompt engineering re
 
 **[→ Try it live at zeroprompt-ai.vercel.app](https://zeroprompt-ai.vercel.app/)**
 
-> No prompts required. Ever.
+> No prompt required. Ever.
 
 ---
 
