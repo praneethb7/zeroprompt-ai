@@ -11,7 +11,7 @@ Upload a file. Pick a goal. Get instant AI analysis — no prompt engineering re
 ## Screenshots
 
 ### AI Output — Rich Markdown Result
-![AI output panel with markdown rendering](public/screenshots/1-result.png)
+![AI output panel with markdown rendering](https://github.com/user-attachments/assets/1bb543d2-0274-4b96-9d87-02957877f0c7)
 
 ### Pick a Goal
 ![Goal selection grid with file chip](public/screenshots/2-goals.png)
