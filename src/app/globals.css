@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design token overrides ─────────────────────────────────────────────── */
+@layer base {
+  :root {
+    /* shadcn-compat vars remapped to the brutal palette */
+    --background:            40 100% 97%;   /* #FFF8F0 cream */
+    --foreground:            0 0% 4%;       /* #0A0A0A ink */
+    --card:                  40 100% 97%;
+    --card-foreground:       0 0% 4%;
+    --popover:               40 100% 97%;
+    --popover-foreground:    0 0% 4%;
+    --primary:               51 100% 50%;   /* #FFE500 yellow */
+    --primary-foreground:    0 0% 4%;
+    --secondary:             216 100% 50%;  /* #0057FF cobalt */
+    --secondary-foreground:  0 0% 100%;
+    --muted:                 40 30% 90%;
+    --muted-foreground:      0 0% 30%;
+    --accent:                9 100% 60%;    /* #FF4136 coral */
+    --accent-foreground:     0 0% 100%;
+    --destructive:           9 100% 60%;
+    --destructive-foreground:0 0% 100%;
+    --border:                0 0% 4%;       /* borders are always ink */
+    --input:                 0 0% 4%;
+    --ring:                  51 100% 50%;
+    --radius:                0px;           /* square by default */
+  }
+
+  /* no dark mode — brutal palette is light-first */
+  *  { @apply border-border; }
+
+  html {
+    background-color: #FFF8F0;
+    color: #0A0A0A;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-cream text-ink;
+    font-family: var(--font-syne), sans-serif;
+    min-height: 100vh;
+  }
+
+  /* Headings: Syne heavy */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-syne), sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  /* Labels, code, badges, captions: DM Mono */
+  label, code, pre, kbd, samp, caption,
+  [data-label], [data-mono] {
+    font-family: var(--font-dm-mono), monospace;
+    font-size: 0.875em;
+  }
+
+  /* Crisp selection */
+  ::selection {
+    background-color: #FFE500;
+    color: #0A0A0A;
+  }
+
+  /* Thick focus ring — no blur, just offset */
+  *:focus-visible {
+    outline: 3px solid #0A0A0A;
+    outline-offset: 3px;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar        { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track  { background: #FFF8F0; border-left: 2px solid #0A0A0A; }
+  ::-webkit-scrollbar-thumb  { background: #0A0A0A; border: 2px solid #FFF8F0; }
+  ::-webkit-scrollbar-thumb:hover { background: #FFE500; }
+}
+
+/* ─── Component layer: reusable brutalist primitives ─────────────────────── */
+@layer components {
+
+  /* Flat offset shadow — the core visual signature */
+  .shadow-brut     { box-shadow: 4px 4px 0px 0px #0A0A0A; }
+  .shadow-brut-sm  { box-shadow: 2px 2px 0px 0px #0A0A0A; }
+  .shadow-brut-lg  { box-shadow: 6px 6px 0px 0px #0A0A0A; }
+  .shadow-brut-xl  { box-shadow: 8px 8px 0px 0px #0A0A0A; }
+
+  /* Tactile hover: element physically lifts */
+  .brut-lift {
+    transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .brut-lift:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px #0A0A0A;
+  }
+  .brut-lift:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px 0px #0A0A0A;
+  }
+
+  /* Thick border utility */
+  .border-ink { border: 3px solid #0A0A0A; }
+  .border-ink-4 { border: 4px solid #0A0A0A; }
+
+  /* Noise texture overlay on an element — layered on top via pseudo */
+  .texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    border-radius: inherit;
+  }
+
+  /* Accent stripe — Memphis-style decorative border-top */
+  .stripe-yellow { border-top: 6px solid #FFE500; }
+  .stripe-coral  { border-top: 6px solid #FF4136; }
+  .stripe-cobalt { border-top: 6px solid #0057FF; }
+  .stripe-lime   { border-top: 6px solid #39FF14; }
+
+  /* Tag / label pill */
+  .brut-tag {
+    @apply inline-flex items-center gap-1 px-2 py-0.5;
+    font-family: var(--font-dm-mono), monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 2px solid #0A0A0A;
+    box-shadow: 2px 2px 0px 0px #0A0A0A;
+  }
+
+  /* Divider — Memphis thick rule */
+  .brut-rule {
+    border: none;
+    border-top: 3px solid #0A0A0A;
+    margin: 1.5rem 0;
+  }
+
+  /* Input base */
+  .brut-input {
+    @apply w-full px-4 py-2.5 bg-cream text-ink placeholder:text-ink/40;
+    border: 3px solid #0A0A0A;
+    box-shadow: 3px 3px 0px 0px #0A0A0A;
+    font-family: var(--font-dm-mono), monospace;
+    font-size: 0.9rem;
+    outline: none;
+    transition: box-shadow 0.1s ease, transform 0.1s ease;
+  }
+  .brut-input:focus {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px 0px #FFE500, 4px 4px 0px 2px #0A0A0A;
+  }
+}
+
+/* ─── Utility layer: one-off helpers ─────────────────────────────────────── */
+@layer utilities {
+  .font-syne    { font-family: var(--font-syne), sans-serif; }
+  .font-dm-mono { font-family: var(--font-dm-mono), monospace; }
+
+  /* Prevent font anti-aliasing from softening the brutalist edges */
+  .crisp { -webkit-font-smoothing: none; font-smooth: never; }
+
+  /* Diagonal stripe background — Memphis classic */
+  .bg-stripe-yellow {
+    background-image: repeating-linear-gradient(
+      45deg,
+      #FFE500,
+      #FFE500 10px,
+      #0A0A0A 10px,
+      #0A0A0A 12px
+    );
+  }
+  .bg-stripe-coral {
+    background-image: repeating-linear-gradient(
+      45deg,
+      #FF4136,
+      #FF4136 10px,
+      #FFF8F0 10px,
+      #FFF8F0 20px
+    );
+  }
+
+  /* Squiggle underline — zine-style emphasis */
+  .underline-squiggle {
+    text-decoration: underline wavy #FF4136 2px;
+    text-underline-offset: 4px;
+  }
+}
