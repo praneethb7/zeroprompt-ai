@@ -14,13 +14,13 @@ Upload a file. Pick a goal. Get instant AI analysis — no prompt engineering re
 ![AI output panel with markdown rendering](https://github.com/user-attachments/assets/1bb543d2-0274-4b96-9d87-02957877f0c7)
 
 ### Pick a Goal
-![Goal selection grid with file chip](public/screenshots/2-goals.png)
+![Goal selection grid with file chip](https://github.com/user-attachments/assets/87aa20ca-bc4b-4aa0-b1fa-d12f72de42e1)
 
 ### Landing Page — Hero
-![Landing page hero section](public/screenshots/3-hero.png)
+![Landing page hero section](https://github.com/user-attachments/assets/fe8205e9-898c-4c92-9848-d4f530467d3a)
 
 ### Landing Page — How It Works
-![How it works feature cards](public/screenshots/4-features.png)
+![How it works feature cards](https://github.com/user-attachments/assets/f250d7d5-9085-4314-99ef-e93ce9edca3e)
 
 ---
 
