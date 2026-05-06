@@ -1,57 +1,63 @@
 # ZeroPrompt
 
-Turn any document into high-quality AI prompts instantly, powered by Gemini.
+Upload a file. Pick a goal. Get instant AI analysis — no prompt engineering required.
+**No prompts required. Ever.**
+
+---
+
+## Screenshots
+
+> _Add screenshots here — `/app` upload state, goal grid, and result panel._
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 14 (App Router) |
+| Styling | Tailwind CSS + custom neo-brutalist design system |
+| Animation | Framer Motion |
+| AI | Google Gemini 1.5 Flash / Pro (via REST API) |
+| File parsing | mammoth (DOCX), papaparse (CSV), native FileReader (PDF, images) |
+| Icons | Lucide React |
+| UI primitives | shadcn/ui |
+| File drop | react-dropzone |
+
+---
 
 ## Setup
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
+```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/zero-prompt.git
+cd zero-prompt
 
-2. **Add your Gemini API key**
+# 2. Install dependencies
+npm install
 
-   Option A — via the app UI (recommended):
-   - Run the dev server and navigate to `/settings`
-   - Paste your Gemini API key (stored locally in your browser)
+# 3. Start the dev server
+npm run dev
+```
 
-   Option B — via environment variable:
-   ```bash
-   cp .env.local.example .env.local
-   # Edit .env.local and replace `your_key_here` with your actual key
-   ```
+Then open [http://localhost:3000](http://localhost:3000), navigate to **Settings**, and paste your Gemini API key. Your key is stored only in `localStorage` — it never leaves your browser.
 
-   Get a free key at: https://aistudio.google.com/app/apikey
+Get a free key at: https://aistudio.google.com/app/apikey
 
-3. **Start the dev server**
-   ```bash
-   npm run dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000)
+---
 
 ## Pages
 
 | Route | Description |
 |-------|-------------|
 | `/` | Landing page |
-| `/app` | Main tool — upload docs & generate prompts |
-| `/settings` | API key configuration |
+| `/app` | Main tool — upload a file, pick a goal, get AI output |
+| `/settings` | API key + model configuration |
 
 ## Supported File Types
 
-- `.txt` / `.md` — Plain text and Markdown
-- `.csv` — Comma-separated values
-- `.docx` — Microsoft Word documents
+PDF · DOCX · CSV · TXT · MD · JS · TS · JSX · TSX · PY · PNG · JPG · WEBP
 
-## Tech Stack
+## Goals
 
-- Next.js 14 (App Router)
-- Tailwind CSS
-- shadcn/ui
-- Framer Motion
-- Lucide React
-- react-dropzone
-- mammoth (DOCX parsing)
-- papaparse (CSV parsing)
-- Google Gemini 1.5 Flash
+Summarize · Find Patterns · Draft Email · Action Items · Explain Simply · Red Flags · Improve It · Restructure

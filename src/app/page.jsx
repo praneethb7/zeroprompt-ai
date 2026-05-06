@@ -5,6 +5,7 @@ import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Navbar from "@/components/Navbar";
 import { Zap, Play, ArrowRight, Upload, Target, Brain } from "lucide-react";
 
 /* ─── Spring preset ──────────────────────────────────────────────────────── */
@@ -183,36 +184,17 @@ const FEATURES = [
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 export default function LandingPage() {
+  const launchBtn = (
+    <Link href="/app">
+      <Button variant="invert" size="sm">Launch App</Button>
+    </Link>
+  );
+
   return (
     <div className="min-h-screen bg-cream text-ink overflow-x-hidden">
 
       {/* ── Nav ── */}
-      <nav className="border-b-4 border-ink bg-yellow sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
-          <motion.div
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={spring}
-            className="flex items-center gap-2"
-          >
-            <Zap className="h-6 w-6" strokeWidth={3} />
-            <span className="font-syne font-extrabold text-xl tracking-tight">ZeroPrompt</span>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={spring}
-            className="flex items-center gap-3"
-          >
-            <Link href="/settings">
-              <Button variant="ghost" size="sm">Settings</Button>
-            </Link>
-            <Link href="/app">
-              <Button variant="invert" size="sm">Launch App</Button>
-            </Link>
-          </motion.div>
-        </div>
-      </nav>
+      <Navbar actions={launchBtn} />
 
       {/* ── Hero ── */}
       <section className="max-w-7xl mx-auto px-6 pt-16 pb-6 grid md:grid-cols-2 gap-12 items-center min-h-[calc(100vh-60px)]">

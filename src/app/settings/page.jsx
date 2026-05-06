@@ -5,9 +5,10 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Navbar from "@/components/Navbar";
 import {
-  Zap, Eye, EyeOff, Check, ExternalLink, Key,
-  Trash2, Loader2, Wifi, WifiOff,
+  Eye, EyeOff, Check, ExternalLink, Key,
+  Trash2, Loader2, Wifi, WifiOff, Zap,
 } from "lucide-react";
 
 const spring     = { type: "spring", stiffness: 400, damping: 18 };
@@ -15,15 +16,15 @@ const springBig  = { type: "spring", stiffness: 320, damping: 12 };
 
 const MODELS = [
   {
-    id: "gemini-1.5-flash",
-    label: "Gemini 1.5 Flash",
+    id: "gemini-2.5-flash",
+    label: "Gemini 2.5 Flash",
     badge: "FREE",
     badgeColor: "bg-lime border-ink text-ink",
-    desc: "Fast, efficient — perfect for most tasks. Free tier available.",
+    desc: "Latest generation, fast and capable — free tier available. Recommended.",
   },
   {
-    id: "gemini-1.5-pro",
-    label: "Gemini 1.5 Pro",
+    id: "gemini-2.5-pro",
+    label: "Gemini 2.5 Pro",
     badge: "PRO",
     badgeColor: "bg-cobalt border-ink text-white",
     desc: "Highest accuracy for complex documents. Billed per token.",
@@ -57,8 +58,8 @@ function SaveButton({ onSave, disabled, saved }) {
       disabled={disabled}
       whileHover={disabled ? {} : { x: -2, y: -2, boxShadow: "6px 6px 0px 0px #0A0A0A" }}
       whileTap={disabled ? {} : { x: 2, y: 2, boxShadow: "1px 1px 0px 0px #0A0A0A" }}
-      animate={saved ? { scale: [1, 1.12, 0.95, 1.06, 1] } : { scale: 1 }}
-      transition={saved ? { ...springBig, duration: 0.45 } : spring}
+      animate={saved ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+      transition={saved ? { type: "tween", ease: [0.34, 1.56, 0.64, 1], duration: 0.4 } : spring}
       style={{ boxShadow: "4px 4px 0px 0px #0A0A0A" }}
       className={`
         relative w-full h-12 flex items-center justify-center gap-2
@@ -178,7 +179,7 @@ function ConnectionStatus({ status, message }) {
 /* ── Page ────────────────────────────────────────────────────────────────── */
 export default function SettingsPage() {
   const [apiKey,    setApiKey]    = useState("");
-  const [model,     setModel]     = useState("gemini-1.5-flash");
+  const [model,     setModel]     = useState("gemini-2.5-flash");
   const [show,      setShow]      = useState(false);
   const [saved,     setSaved]     = useState(false);
   const [testStatus, setTestStatus] = useState(null); // null | "testing" | "ok" | "fail"
@@ -207,6 +208,12 @@ export default function SettingsPage() {
     try {
       await pingGemini(apiKey.trim(), model);
       setTestStatus("ok");
+      // Auto-save on successful connection
+      localStorage.setItem("zeroprompt_gemini_key", apiKey.trim());
+      localStorage.setItem("zeroprompt_model", model);
+      setHasKey(true);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
     } catch (err) {
       setTestStatus("fail");
       setTestMsg(err.message);
@@ -217,7 +224,7 @@ export default function SettingsPage() {
     localStorage.removeItem("zeroprompt_gemini_key");
     localStorage.removeItem("zeroprompt_model");
     setApiKey("");
-    setModel("gemini-1.5-flash");
+    setModel("gemini-2.5-flash");
     setHasKey(false);
     setTestStatus(null);
   };
@@ -226,17 +233,11 @@ export default function SettingsPage() {
     <div className="min-h-screen bg-cream text-ink">
 
       {/* ── Nav ── */}
-      <nav className="border-b-4 border-ink bg-yellow sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Zap className="h-6 w-6" strokeWidth={3} />
-            <span className="font-syne font-extrabold text-xl tracking-tight">ZeroPrompt</span>
-          </Link>
-          <Link href="/app">
-            <Button variant="invert" size="sm">Launch App</Button>
-          </Link>
-        </div>
-      </nav>
+      <Navbar actions={
+        <Link href="/app">
+          <Button variant="invert" size="sm">Launch App</Button>
+        </Link>
+      } />
 
       {/* ── Main ── */}
       <main className="max-w-2xl mx-auto px-6 py-14 space-y-8">

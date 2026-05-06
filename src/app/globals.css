@@ -190,4 +190,11 @@
     text-decoration: underline wavy #FF4136 2px;
     text-underline-offset: 4px;
   }
+
+  /* Subtle dot grid — page texture for /app */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, rgba(10,10,10,0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-attachment: local;
+  }
 }
